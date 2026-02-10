@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Finish Him!"
+config/description="Perform a fatality as quick as you can!"
 run/main_scene="uid://23ldqrlrursk"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cf0nd1ckv0gc3"
 
 [input]
 

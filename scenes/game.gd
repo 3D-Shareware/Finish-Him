@@ -13,6 +13,7 @@ extends Node2D
 
 @onready var timer = $"Timer"
 
+@onready var good_kevin = $"Good Kevin"
 @onready var evil_kevin = $"Evil Kevin"
 
 enum INPUTS {up, left, down, right}
@@ -30,7 +31,7 @@ func _ready() -> void:
 	start_game(randf_range(1.0, 5.0))
 	# start_game(ultra_hardcore_difficulty)
 
-func start_game(new_difficulty: int):
+func start_game(new_difficulty: float):
 	ultra_hardcore_difficulty = new_difficulty
 	var number_of_keys = clampi(int((ultra_hardcore_difficulty * 2.5 + 2.6)), 5, 10)
 	for i in number_of_keys:
@@ -53,12 +54,13 @@ func _physics_process(_delta: float) -> void:
 			# succesful input!
 			camera_anim.stop()
 			camera_anim.play("tiny_shake")
-			key_input_order.pop_front()
 			key_nodes[0].get_got()
 			key_nodes.pop_front()
+			good_kevin.set_frame(key_input_order.pop_front())
 			if key_input_order.is_empty():
 				take_inputs = false
 				print(str(timer.wait_time - timer.time_left))
+				good_kevin.get_got()
 				evil_kevin.get_got()
 				# you win!
 			else:
@@ -68,6 +70,7 @@ func _physics_process(_delta: float) -> void:
 			for k in key_nodes:
 				k.you_lose()
 			take_inputs = false
+			good_kevin.you_lose()
 			evil_kevin.you_lose()
 	if Input.is_action_just_pressed("DEBUG_RESET"):
 		get_tree().reload_current_scene()

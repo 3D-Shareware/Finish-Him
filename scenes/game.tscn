@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd8khf7ltrb7o" path="res://scenes/game.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://23y806ndy068" path="res://scenes/key_holder.gd" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://xx6as51jwkk0" path="res://objects/good_kevin.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dsmv0hrfm7k3g" path="res://objects/evil_kevin.tscn" id="3_lnu2h"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
@@ -73,6 +74,9 @@ script = ExtResource("2_yqjtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Key Holder" unique_id=1409896857]
 shape = SubResource("RectangleShape2D_yqjtg")
+
+[node name="Good Kevin" parent="." unique_id=1739136560 instance=ExtResource("3_lbhrr")]
+position = Vector2(-208, -265)
 
 [node name="Evil Kevin" parent="." unique_id=855642725 instance=ExtResource("3_lnu2h")]
 position = Vector2(208, -265)
