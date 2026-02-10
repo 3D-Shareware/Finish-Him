@@ -11,6 +11,8 @@ extends Node2D
 
 @onready var camera_anim: AnimationPlayer = $"Camera2D/AnimationPlayer"
 
+@onready var timer = $"Timer"
+
 @onready var evil_kevin = $"Evil Kevin"
 
 enum INPUTS {up, left, down, right}
@@ -25,6 +27,11 @@ var key_nodes = []
 var take_inputs = true
 
 func _ready() -> void:
+	start_game(randf_range(1.0, 5.0))
+	# start_game(ultra_hardcore_difficulty)
+
+func start_game(new_difficulty: int):
+	ultra_hardcore_difficulty = new_difficulty
 	var number_of_keys = clampi(int((ultra_hardcore_difficulty * 2.5 + 2.6)), 5, 10)
 	for i in number_of_keys:
 		var new_input = randi_range(0, 3)
@@ -36,8 +43,11 @@ func _ready() -> void:
 		new_key.ready_by_parent(i, new_input)
 		key_nodes.append(new_key)
 	key_nodes[0].raring_to_go()
+	timer.wait_time = clamp(12 - 2 * ultra_hardcore_difficulty, 4, 10)
+	print(timer.wait_time)
+	timer.start()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if take_inputs:
 		if Input.is_action_just_pressed(target_input_names[key_input_order[0]]):
 			# succesful input!
@@ -48,15 +58,15 @@ func _physics_process(delta: float) -> void:
 			key_nodes.pop_front()
 			if key_input_order.is_empty():
 				take_inputs = false
-				print(str(10 - $"Timer".time_left))
+				print(str(timer.wait_time - timer.time_left))
 				evil_kevin.get_got()
 				# you win!
 			else:
 				key_nodes[0].raring_to_go()
 		elif Input.is_action_just_pressed("keyboard"):
 			# fail!
-			for key in key_nodes:
-				key.you_lose()
+			for k in key_nodes:
+				k.you_lose()
 			take_inputs = false
 			evil_kevin.you_lose()
 	if Input.is_action_just_pressed("DEBUG_RESET"):
