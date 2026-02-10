@@ -8,9 +8,10 @@ var is_active = false
 
 func ready_by_parent(i: int, key_frame: int):
 	id = i
-	position.x = id * 32 - 160
+	position.x = id * 32 - 144
 	position.y = -200
 	$"Sprite2D".rotation = key_frame * -PI / 2
+	apply_impulse(Vector2(0, 250))
 
 func get_got():
 	collision_layer = 1
@@ -19,6 +20,7 @@ func get_got():
 	anim.play("break")
 	$"Sprite2D".z_index = 0
 	is_active = false
+	#apply_impulse(Vector2(0, 500))
 
 func raring_to_go():
 	anim.play("blink")
