@@ -29,7 +29,7 @@ func _ready() -> void:
 		add_child(new_key)
 		new_key.ready_by_parent(i, new_input)
 		key_nodes.append(new_key)
-	print(key_input_order)
+	key_nodes[0].raring_to_go()
 
 func _physics_process(delta: float) -> void:
 	if take_inputs:
@@ -41,8 +41,11 @@ func _physics_process(delta: float) -> void:
 			key_nodes[0].get_got()
 			key_nodes.pop_front()
 			if key_input_order.is_empty():
-				print("ya done")
 				take_inputs = false
+			else:
+				key_nodes[0].raring_to_go()
 		elif Input.is_action_just_pressed("keyboard"):
-			print("YOU LOSE")
+			# fail!
+			for key in key_nodes:
+				key.you_lose()
 			take_inputs = false
