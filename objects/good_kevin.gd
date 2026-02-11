@@ -82,3 +82,11 @@ func scare_evil_kevin():
 		game.scare_evil_kevin()
 	anim.stop()
 	anim.play("get_over_here_loop")
+
+func start_shaking():
+	if game != null:
+		game.start_shaking()
+
+func pause_shaking():
+	if game != null:
+		game.pause_shaking()

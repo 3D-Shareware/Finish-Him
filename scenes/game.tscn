@@ -5,8 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dpk8g226k74qi" path="res://assets/i_dont_wanna_use_canvas_modulate.png" id="3_iywne"]
 [ext_resource type="PackedScene" uid="uid://xx6as51jwkk0" path="res://objects/good_kevin.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dsmv0hrfm7k3g" path="res://objects/evil_kevin.tscn" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://cpsrmd7784j3r" path="res://assets/background.png" id="4_gee14"]
 [ext_resource type="PackedScene" uid="uid://c2v6uks8wg5de" path="res://objects/timekeeper_digit.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dkhu0lnl3rpa2" path="res://objects/health_bar.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://b18n6wpecrxaw" path="res://objects/finish_him.tscn" id="9_0tnpc"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -21,6 +23,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_trtic"]
+resource_name = "big_shake"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 0), Vector2(-8, 0), Vector2(6, 0), Vector2(-6, 0), Vector2(4, 0), Vector2(-4, 0), Vector2(2, 0), Vector2(-2, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_u5sy4"]
@@ -56,6 +75,24 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 3), Vector2(0, -3), Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_kvuet"]
+resource_name = "little_shake"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 0), Vector2(-2, 0), Vector2(2, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_lnu2h"]
@@ -147,8 +184,10 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lbhrr"]
 _data = {
 &"RESET": SubResource("Animation_yqjtg"),
+&"big_shake": SubResource("Animation_trtic"),
 &"bomb": SubResource("Animation_u5sy4"),
 &"ghoulish_party": SubResource("Animation_kvpfn"),
+&"little_shake": SubResource("Animation_kvuet"),
 &"tiny_shake_down": SubResource("Animation_lnu2h"),
 &"tiny_shake_left": SubResource("Animation_0tnpc"),
 &"tiny_shake_right": SubResource("Animation_vtaks"),
@@ -290,6 +329,8 @@ libraries/ = SubResource("AnimationLibrary_u5sy4")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=717327727]
 z_index = -10
+texture_filter = 1
+texture = ExtResource("4_gee14")
 
 [node name="Good Kevin" parent="." unique_id=1739136560 instance=ExtResource("3_lbhrr")]
 position = Vector2(-208, -265)
@@ -309,6 +350,9 @@ position = Vector2(-152, -384)
 [node name="Health Bar 2" parent="." unique_id=18504151 instance=ExtResource("7_u5sy4")]
 position = Vector2(152, -384)
 evil = true
+
+[node name="Finish Him" parent="." unique_id=1432893557 instance=ExtResource("9_0tnpc")]
+position = Vector2(0, -8)
 
 [node name="Move On Timer" type="Timer" parent="." unique_id=663208155]
 editor_description = "Once time elapses, game is over and moves on to next game."

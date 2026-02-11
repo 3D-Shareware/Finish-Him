@@ -29,6 +29,7 @@ extends Node2D
 @onready var evil_kevin = $"Evil Kevin"
 
 @onready var bg_darken = $"Background Darkener/AnimationPlayer"
+@onready var finish_him = $"Finish Him"
 
 enum INPUTS {up, left, down, right}
 
@@ -85,6 +86,7 @@ func start_game(new_difficulty: float):
 	all_shakeable_rigid_bodies.append(health_bar_2)
 	for n in key_nodes:
 		all_shakeable_rigid_bodies.append(n)
+	finish_him.play()
 
 func _physics_process(_delta: float) -> void:
 	if take_inputs:
@@ -231,11 +233,20 @@ func shake_ground():
 	hurt_evil_kevin()
 	move_on_timer.wait_time = 3
 	move_on_timer.start()
+	camera_anim.stop()
+	camera_anim.play("big_shake")
 	# shake_amount += shake_increment
 
 func shake_it():
 	camera_anim.stop()
 	camera_anim.play("winter_wonderland")
+
+func start_shaking():
+	camera_anim.stop()
+	camera_anim.play("little_shake")
+
+func pause_shaking():
+	camera_anim.stop()
 
 func next_game():
 	# in UMDware, this moves this game along
