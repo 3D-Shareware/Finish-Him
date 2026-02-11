@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xx6as51jwkk0" path="res://objects/good_kevin.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dsmv0hrfm7k3g" path="res://objects/evil_kevin.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c2v6uks8wg5de" path="res://objects/timekeeper_digit.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dkhu0lnl3rpa2" path="res://objects/health_bar.tscn" id="7_u5sy4"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -52,6 +53,9 @@ size = Vector2(600, 20)
 size = Vector2(4000, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(80, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
 size = Vector2(80, 8)
 
 [sub_resource type="Animation" id="Animation_lbhrr"]
@@ -144,6 +148,26 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Time Holder" unique_id=351327880]
 shape = SubResource("RectangleShape2D_p57ef")
 
+[node name="Health Holder 1" type="StaticBody2D" parent="." unique_id=849439156]
+position = Vector2(-150, 0)
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health Holder 1" unique_id=120855721]
+position = Vector2(0, -88)
+shape = SubResource("RectangleShape2D_u5sy4")
+debug_color = Color(0.6826832, 0.45925534, 0.5537497, 0.41960785)
+
+[node name="Health Holder 2" type="StaticBody2D" parent="." unique_id=940097920]
+position = Vector2(150, 0)
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health Holder 2" unique_id=525837435]
+position = Vector2(0, -88)
+shape = SubResource("RectangleShape2D_u5sy4")
+debug_color = Color(0.6826832, 0.45925534, 0.5537497, 0.41960785)
+
 [node name="Background Darkener" type="Sprite2D" parent="." unique_id=197590992]
 editor_description = "Literally only exists for that klassic screen darkening."
 visible = false
@@ -168,6 +192,13 @@ position = Vector2(-20, -200)
 
 [node name="Digit 2" parent="." unique_id=600093132 instance=ExtResource("6_p57ef")]
 position = Vector2(20, -200)
+
+[node name="Health Bar" parent="." unique_id=289433643 instance=ExtResource("7_u5sy4")]
+position = Vector2(-152, -384)
+
+[node name="Health Bar 2" parent="." unique_id=18504151 instance=ExtResource("7_u5sy4")]
+position = Vector2(152, -384)
+evil = true
 
 [node name="Move On Timer" type="Timer" parent="." unique_id=663208155]
 editor_description = "Once time elapses, game is over and moves on to next game."

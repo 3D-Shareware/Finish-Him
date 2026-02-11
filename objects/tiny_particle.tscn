@@ -7,6 +7,7 @@
 radius = 1.0
 
 [node name="Tiny Particle" type="RigidBody2D" unique_id=408193978]
+z_index = 1
 collision_layer = 0
 collision_mask = 9
 script = ExtResource("1_cofmq")

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dkhu0lnl3rpa2"]
+
+[ext_resource type="Script" uid="uid://cfc4h3spgqad0" path="res://objects/health_bar.gd" id="1_p061y"]
+[ext_resource type="Texture2D" uid="uid://cnp4p30yhyppm" path="res://assets/health_bar.png" id="1_tr6ij"]
+[ext_resource type="Texture2D" uid="uid://i4ndqa6uttgp" path="res://assets/health_bar_overlay.png" id="2_p061y"]
+[ext_resource type="Texture2D" uid="uid://bpyr77vjnlaqx" path="res://assets/kevin_name.png" id="4_32el7"]
+[ext_resource type="Texture2D" uid="uid://dteupkh7h28xt" path="res://assets/evil_kevin_name.png" id="5_6pupt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tr6ij"]
+radius = 15.0
+height = 200.0
+
+[node name="Health Bar" type="RigidBody2D" unique_id=289433643]
+collision_layer = 64
+collision_mask = 77
+script = ExtResource("1_p061y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1588764024]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_tr6ij")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=784805335]
+texture_filter = 1
+offset_left = -102.0
+offset_top = -16.0
+offset_right = 102.0
+offset_bottom = 18.0
+value = 50.0
+texture_under = ExtResource("1_tr6ij")
+texture_over = ExtResource("2_p061y")
+texture_progress = ExtResource("1_tr6ij")
+tint_under = Color(1, 0, 0, 1)
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="Kevin" type="Sprite2D" parent="." unique_id=1089000330]
+visible = false
+texture_filter = 1
+position = Vector2(-51, 0)
+texture = ExtResource("4_32el7")
+
+[node name="Evil Kevin" type="Sprite2D" parent="." unique_id=694677766]
+visible = false
+texture_filter = 1
+position = Vector2(13, 0)
+texture = ExtResource("5_6pupt")

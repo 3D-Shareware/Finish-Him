@@ -437,6 +437,7 @@ _data = {
 }
 
 [node name="Good Kevin" type="RigidBody2D" unique_id=1739136560]
+z_index = 1
 collision_layer = 9
 script = ExtResource("1_l8tv4")
 

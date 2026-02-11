@@ -158,6 +158,7 @@ _data = {
 size = Vector2(42, 192)
 
 [node name="Evil Kevin" type="RigidBody2D" unique_id=855642725]
+z_index = 1
 collision_layer = 9
 script = ExtResource("1_ayuy6")
 

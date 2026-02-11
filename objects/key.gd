@@ -15,7 +15,7 @@ func ready_by_parent(i: int, key_frame: int):
 	$"Sprite2D".rotation = key_frame * -PI / 2
 	apply_impulse(Vector2(0, 250))
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_scared:
 		apply_force(Vector2(-1000, -100))
 
@@ -24,7 +24,7 @@ func get_got():
 	collision_mask = 5
 	anim.stop(true)
 	anim.play("break")
-	$"Sprite2D".z_index = 0
+	$"Sprite2D".z_index = 1
 	is_active = false
 	#apply_impulse(Vector2(0, 500))
 

@@ -22,6 +22,9 @@ extends Node2D
 @onready var timer_digit_1 = $"Digit 1"
 @onready var timer_digit_2 = $"Digit 2"
 
+@onready var health_bar_1 = $"Health Bar"
+@onready var health_bar_2 = $"Health Bar 2"
+
 @onready var good_kevin = $"Good Kevin"
 @onready var evil_kevin = $"Evil Kevin"
 
@@ -78,6 +81,8 @@ func start_game(new_difficulty: float):
 	all_shakeable_rigid_bodies.append(evil_kevin)
 	all_shakeable_rigid_bodies.append(timer_digit_1)
 	all_shakeable_rigid_bodies.append(timer_digit_2)
+	all_shakeable_rigid_bodies.append(health_bar_1)
+	all_shakeable_rigid_bodies.append(health_bar_2)
 	for n in key_nodes:
 		all_shakeable_rigid_bodies.append(n)
 

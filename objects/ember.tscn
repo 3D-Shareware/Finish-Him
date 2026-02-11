@@ -78,6 +78,7 @@ _data = {
 }
 
 [node name="Ember" type="RigidBody2D" unique_id=588545212]
+z_index = 1
 collision_layer = 9
 collision_mask = 9
 mass = 0.1
