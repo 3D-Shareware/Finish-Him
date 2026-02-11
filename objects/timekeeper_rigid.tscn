@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dggujb6lnrr"]
+
+[ext_resource type="Script" uid="uid://r1h1c7uwcgsj" path="res://objects/timekeeper_rigid.gd" id="1_cu73b"]
+[ext_resource type="Texture2D" uid="uid://bjomlq13ww3hp" path="res://assets/zero.png" id="2_lsw55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2aenk"]
+size = Vector2(74, 68)
+
+[node name="TimekeeperRigid" type="RigidBody2D" unique_id=978916762]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_cu73b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2098797506]
+shape = SubResource("RectangleShape2D_2aenk")
+
+[node name="First Digit" type="Sprite2D" parent="." unique_id=528682356]
+texture_filter = 1
+position = Vector2(-20, 0)
+texture = ExtResource("2_lsw55")
+
+[node name="Second Digit" type="Sprite2D" parent="." unique_id=628768609]
+texture_filter = 1
+position = Vector2(20, 0)
+texture = ExtResource("2_lsw55")

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://2rn83isep14b"]
+
+[ext_resource type="Script" uid="uid://blgsbegbhqpp" path="res://objects/icicle.gd" id="1_4y0ab"]
+[ext_resource type="Texture2D" uid="uid://dugtundsh8ac6" path="res://assets/icicle.png" id="1_fa6fk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fa6fk"]
+radius = 7.0
+height = 34.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4y0ab"]
+radius = 8.0
+height = 36.0
+
+[node name="Icicle" type="RigidBody2D" unique_id=1477504306]
+collision_layer = 9
+collision_mask = 9
+mass = 2.0
+script = ExtResource("1_4y0ab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1171329968]
+shape = SubResource("CapsuleShape2D_fa6fk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=401231992]
+texture_filter = 1
+texture = ExtResource("1_fa6fk")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2066790458]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=139515228]
+shape = SubResource("CapsuleShape2D_4y0ab")
+debug_color = Color(0.88213897, 0.00034346103, 0.8186181, 0.41960785)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

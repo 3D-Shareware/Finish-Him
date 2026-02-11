@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cukxcuwxh7r6q"]
+
+[ext_resource type="Texture2D" uid="uid://v1ke3ur6evva" path="res://assets/surprisingly_versatile_white_pixel.png" id="1_3vfy8"]
+[ext_resource type="Script" uid="uid://cjo42cs64rr6w" path="res://objects/tiny_particle.gd" id="1_cofmq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cofmq"]
+radius = 1.0
+
+[node name="Tiny Particle" type="RigidBody2D" unique_id=408193978]
+collision_layer = 0
+collision_mask = 9
+script = ExtResource("1_cofmq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=423023508]
+shape = SubResource("CircleShape2D_cofmq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1757483896]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_3vfy8")

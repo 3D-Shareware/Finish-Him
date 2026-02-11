@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bpcxcl5trsr5u"]
+
+[ext_resource type="Script" uid="uid://b6ara34wj8qkm" path="res://objects/ember.gd" id="1_hw45w"]
+[ext_resource type="Texture2D" uid="uid://d2n3y73xnyj74" path="res://assets/ember.png" id="2_wxg7a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hw45w"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_hw45w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u5sw2"]
+resource_name = "burn_loop"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_wxg7a"]
+resource_name = "burn_startup"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"burn_loop"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u5sw2"]
+_data = {
+&"RESET": SubResource("Animation_hw45w"),
+&"burn_loop": SubResource("Animation_u5sw2"),
+&"burn_startup": SubResource("Animation_wxg7a")
+}
+
+[node name="Ember" type="RigidBody2D" unique_id=588545212]
+collision_layer = 9
+collision_mask = 9
+mass = 0.1
+gravity_scale = 2.0
+script = ExtResource("1_hw45w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=484915964]
+texture_filter = 1
+texture = ExtResource("2_wxg7a")
+hframes = 2
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661602664]
+shape = SubResource("CircleShape2D_hw45w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1464223608]
+libraries/ = SubResource("AnimationLibrary_u5sw2")

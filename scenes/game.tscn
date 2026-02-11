@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bd8khf7ltrb7o" path="res://scenes/game.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://23y806ndy068" path="res://scenes/key_holder.gd" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://dpk8g226k74qi" path="res://assets/i_dont_wanna_use_canvas_modulate.png" id="3_iywne"]
 [ext_resource type="PackedScene" uid="uid://xx6as51jwkk0" path="res://objects/good_kevin.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dsmv0hrfm7k3g" path="res://objects/evil_kevin.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c2v6uks8wg5de" path="res://objects/timekeeper_digit.tscn" id="6_p57ef"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -49,6 +51,63 @@ size = Vector2(600, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(4000, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(80, 8)
+
+[sub_resource type="Animation" id="Animation_lbhrr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iywne"]
+resource_name = "darken"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.49803922)]
+}
+
+[sub_resource type="Animation" id="Animation_p57ef"]
+resource_name = "start"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u5sy4"]
+_data = {
+&"RESET": SubResource("Animation_lbhrr"),
+&"darken": SubResource("Animation_iywne"),
+&"start": SubResource("Animation_p57ef")
+}
+
 [node name="Game" type="Node2D" unique_id=871968955]
 script = ExtResource("1_uwrxv")
 
@@ -61,6 +120,7 @@ libraries/ = SubResource("AnimationLibrary_lbhrr")
 [node name="THE FLOOR" type="StaticBody2D" parent="." unique_id=1515397770]
 editor_description = "The hit TV show coming to a streaming service near you!"
 position = Vector2(0, 192)
+collision_layer = 21
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="THE FLOOR" unique_id=729409272]
 position = Vector2(0, -40)
@@ -73,7 +133,29 @@ collision_mask = 2
 script = ExtResource("2_yqjtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Key Holder" unique_id=1409896857]
+position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_yqjtg")
+
+[node name="Time Holder" type="StaticBody2D" parent="." unique_id=40778554]
+position = Vector2(0, -88)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Time Holder" unique_id=351327880]
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="Background Darkener" type="Sprite2D" parent="." unique_id=197590992]
+editor_description = "Literally only exists for that klassic screen darkening."
+visible = false
+z_index = -1
+scale = Vector2(600, 600)
+texture = ExtResource("3_iywne")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background Darkener" unique_id=1804936368]
+libraries/ = SubResource("AnimationLibrary_u5sy4")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=717327727]
+z_index = -10
 
 [node name="Good Kevin" parent="." unique_id=1739136560 instance=ExtResource("3_lbhrr")]
 position = Vector2(-208, -265)
@@ -81,6 +163,23 @@ position = Vector2(-208, -265)
 [node name="Evil Kevin" parent="." unique_id=855642725 instance=ExtResource("3_lnu2h")]
 position = Vector2(208, -265)
 
-[node name="Timer" type="Timer" parent="." unique_id=2065526258]
-wait_time = 10.0
+[node name="Digit 1" parent="." unique_id=731773443 instance=ExtResource("6_p57ef")]
+position = Vector2(-20, -200)
+
+[node name="Digit 2" parent="." unique_id=600093132 instance=ExtResource("6_p57ef")]
+position = Vector2(20, -200)
+
+[node name="Move On Timer" type="Timer" parent="." unique_id=663208155]
+editor_description = "Once time elapses, game is over and moves on to next game."
+wait_time = 1.5
 one_shot = true
+
+[node name="Digital Timer Update Timer" type="Timer" parent="." unique_id=1877977908]
+wait_time = 0.5
+
+[node name="Fatality Timer" type="Timer" parent="." unique_id=727898826]
+wait_time = 0.1
+
+[connection signal="timeout" from="Move On Timer" to="." method="_on_move_on_timer_timeout"]
+[connection signal="timeout" from="Digital Timer Update Timer" to="." method="_on_digital_timer_update_timer_timeout"]
+[connection signal="timeout" from="Fatality Timer" to="." method="_on_fatality_timer_timeout"]

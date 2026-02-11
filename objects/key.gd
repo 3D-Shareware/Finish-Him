@@ -4,6 +4,8 @@ var id = 0
 
 var is_active = false
 
+var is_scared = false
+
 @onready var anim = $"AnimationPlayer"
 
 func ready_by_parent(i: int, key_frame: int):
@@ -13,9 +15,13 @@ func ready_by_parent(i: int, key_frame: int):
 	$"Sprite2D".rotation = key_frame * -PI / 2
 	apply_impulse(Vector2(0, 250))
 
+func _physics_process(delta: float) -> void:
+	if is_scared:
+		apply_force(Vector2(-1000, -100))
+
 func get_got():
-	collision_layer = 1
-	collision_mask = 1
+	collision_layer = 5
+	collision_mask = 5
 	anim.stop(true)
 	anim.play("break")
 	$"Sprite2D".z_index = 0
