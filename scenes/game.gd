@@ -91,7 +91,7 @@ func _physics_process(_delta: float) -> void:
 		if Input.is_action_just_pressed(target_input_names[key_input_order[0]]):
 			# succesful input!
 			camera_anim.stop()
-			camera_anim.play("tiny_shake")
+			camera_anim.play("tiny_shake_" + str(target_input_names[key_input_order[0]]))
 			key_nodes[0].get_got()
 			key_nodes.pop_front()
 			good_kevin.set_frame(key_input_order.pop_front())
@@ -105,29 +105,17 @@ func _physics_process(_delta: float) -> void:
 			you_lose()
 	if is_scared:
 		spawn_spectral_particle()
-	## REMOVE ALL THIS FOR UMDware
-	if true and Input.is_action_just_pressed("DEBUG_RESET"):
-		if won:
-			Global.global_difficulty += 0.5
-		else:
-			Global.global_difficulty = 1.0
-		get_tree().reload_current_scene()
-
 
 func _on_move_on_timer_timeout() -> void:
-	DEBUG_CAN_RESET = true
-	# emit_signal(move_on) or something
+	next_game()
 
 func you_win():
 	take_inputs = false
 	won = true
 	good_kevin.get_got()
-	# evil_kevin.get_got()
 	bg_darken.get_parent().show()
 	bg_darken.play("darken")
-	# should only play once fatality finishes
 	digital_timer_update_timer.stop()
-	move_on_timer.start()
 
 func you_lose():
 	for k in key_nodes:
@@ -137,6 +125,8 @@ func you_lose():
 	evil_kevin.you_lose()
 	move_on_timer.start()
 	digital_timer_update_timer.stop()
+	move_on_timer.wait_time = 2.5
+	move_on_timer.start()
 
 
 func _on_digital_timer_update_timer_timeout() -> void:
@@ -180,6 +170,10 @@ func spawn_bomb():
 		add_child(new_particle)
 		new_particle.ready_by_parent(2)
 		new_particle.position = Vector2(good_kevin.position.x + 75, good_kevin.position.y - 40)
+	move_on_timer.wait_time = 2
+	move_on_timer.start()
+	camera_anim.stop()
+	camera_anim.play("bomb")
 
 func spawn_spectral_particle():
 	remaining_spawning_things -= 1
@@ -194,12 +188,20 @@ func hurt_evil_kevin():
 
 func freeze_evil_kevin():
 	evil_kevin.freeze()
+	move_on_timer.wait_time = 4
+	move_on_timer.start()
+	camera_anim.stop()
+	camera_anim.play("winter_wonderland")
 
 func scare_evil_kevin():
 	evil_kevin.get_scared()
 	for b in all_shakeable_rigid_bodies:
 		b.is_scared = true
 	is_scared = true
+	move_on_timer.wait_time = 3
+	move_on_timer.start()
+	camera_anim.stop()
+	camera_anim.play("ghoulish_party")
 
 func start_freeze_timer():
 	spawn_icicle()
@@ -227,4 +229,19 @@ func shake_ground():
 		new_particle.ready_by_parent(1)
 		new_particle.position = Vector2(randi_range(-200, 200), 141)
 	hurt_evil_kevin()
+	move_on_timer.wait_time = 3
+	move_on_timer.start()
 	# shake_amount += shake_increment
+
+func shake_it():
+	camera_anim.stop()
+	camera_anim.play("winter_wonderland")
+
+func next_game():
+	# in UMDware, this moves this game along
+	# in not UMDware, it just resets the game
+	if won:
+		Global.global_difficulty += 0.5
+	else:
+		Global.global_difficulty = 1.0
+	get_tree().reload_current_scene()

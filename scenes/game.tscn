@@ -23,8 +23,94 @@ tracks/0/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_u5sy4"]
+resource_name = "bomb"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 16), Vector2(0, -16), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kvpfn"]
+resource_name = "ghoulish_party"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 3), Vector2(0, -3), Vector2(0, 3)]
+}
+
 [sub_resource type="Animation" id="Animation_lnu2h"]
-resource_name = "tiny_shake"
+resource_name = "tiny_shake_down"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 4), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+resource_name = "tiny_shake_left"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-4, 0), Vector2(4, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vtaks"]
+resource_name = "tiny_shake_right"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 0), Vector2(-4, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gee14"]
+resource_name = "tiny_shake_up"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -40,10 +126,34 @@ tracks/0/keys = {
 "values": [Vector2(0, -4), Vector2(0, 4), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_dinhu"]
+resource_name = "winter_wonderland"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lbhrr"]
 _data = {
 &"RESET": SubResource("Animation_yqjtg"),
-&"tiny_shake": SubResource("Animation_lnu2h")
+&"bomb": SubResource("Animation_u5sy4"),
+&"ghoulish_party": SubResource("Animation_kvpfn"),
+&"tiny_shake_down": SubResource("Animation_lnu2h"),
+&"tiny_shake_left": SubResource("Animation_0tnpc"),
+&"tiny_shake_right": SubResource("Animation_vtaks"),
+&"tiny_shake_up": SubResource("Animation_gee14"),
+&"winter_wonderland": SubResource("Animation_dinhu")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
@@ -202,7 +312,7 @@ evil = true
 
 [node name="Move On Timer" type="Timer" parent="." unique_id=663208155]
 editor_description = "Once time elapses, game is over and moves on to next game."
-wait_time = 1.5
+wait_time = 2.0
 one_shot = true
 
 [node name="Digital Timer Update Timer" type="Timer" parent="." unique_id=1877977908]

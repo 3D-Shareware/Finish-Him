@@ -51,6 +51,8 @@ func set_burning(burning: bool):
 	if !is_burning and game != null:
 		game.launch_embers()
 		bomb_it()
+	else:
+		game.shake_it()
 
 func bomb_it():
 	if game != null:
