@@ -59,9 +59,57 @@ var DEBUG_CAN_RESET = false
 var all_embers = []
 var is_scared = false
 
-
-
 func _ready() -> void:
+	# add inputs if they don't exist
+	# good for umdware
+	if not InputMap.has_action("finish_him_up"):
+		# up
+		var up = InputEventKey.new()
+		up.keycode = KEY_W
+		var up2 = InputEventKey.new()
+		up2.keycode = KEY_UP
+		InputMap.add_action("finish_him_up")
+		InputMap.action_add_event("finish_him_up", up)
+		InputMap.action_add_event("finish_him_up", up2)
+		
+		# left
+		var left = InputEventKey.new()
+		left.keycode = KEY_A
+		var left2 = InputEventKey.new()
+		left2.keycode = KEY_LEFT
+		InputMap.add_action("finish_him_left")
+		InputMap.action_add_event("finish_him_left", left)
+		InputMap.action_add_event("finish_him_left", left2)
+		
+		# down
+		var down = InputEventKey.new()
+		down.keycode = KEY_S
+		var down2 = InputEventKey.new()
+		down2.keycode = KEY_DOWN
+		InputMap.add_action("finish_him_down")
+		InputMap.action_add_event("finish_him_down", down)
+		InputMap.action_add_event("finish_him_down", down2)
+		
+		# right
+		var right = InputEventKey.new()
+		right.keycode = KEY_D
+		var right2 = InputEventKey.new()
+		right2.keycode = KEY_RIGHT
+		InputMap.add_action("finish_him_right")
+		InputMap.action_add_event("finish_him_right", right)
+		InputMap.action_add_event("finish_him_right", right2)
+		
+		# the everything button
+		InputMap.add_action("finish_him_keyboard")
+		InputMap.action_add_event("finish_him_keyboard", up)
+		InputMap.action_add_event("finish_him_keyboard", up2)
+		InputMap.action_add_event("finish_him_keyboard", left)
+		InputMap.action_add_event("finish_him_keyboard", left2)
+		InputMap.action_add_event("finish_him_keyboard", down)
+		InputMap.action_add_event("finish_him_keyboard", down2)
+		InputMap.action_add_event("finish_him_keyboard", right)
+		InputMap.action_add_event("finish_him_keyboard", right2)
+		
 	bg_darken.stop(true)
 	bg_darken.play("start")
 	start_game(Global.global_difficulty)
@@ -80,7 +128,7 @@ func start_game(new_difficulty: float):
 		new_key.ready_by_parent(i, new_input)
 		key_nodes.append(new_key)
 	key_nodes[0].raring_to_go()
-	time_left = 1 + clamp(12 - 2 * ultra_hardcore_difficulty, 4, 10) * 2
+	time_left = 1 + clamp(12 - 2 * ultra_hardcore_difficulty, 3, 10) * 2
 	digital_timer_update_timer.start()
 	_on_digital_timer_update_timer_timeout()
 	all_shakeable_rigid_bodies.append(evil_kevin)
@@ -93,7 +141,6 @@ func start_game(new_difficulty: float):
 	finish_him.play()
 	
 	# music hell
-	var pitch = new_difficulty
 	var shift = AudioEffectPitchShift.new()
 	shift.pitch_scale = time_left / 20.0
 	AudioServer.add_bus()
