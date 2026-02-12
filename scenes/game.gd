@@ -59,6 +59,8 @@ var DEBUG_CAN_RESET = false
 var all_embers = []
 var is_scared = false
 
+
+
 func _ready() -> void:
 	bg_darken.stop(true)
 	bg_darken.play("start")
@@ -89,6 +91,16 @@ func start_game(new_difficulty: float):
 	for n in key_nodes:
 		all_shakeable_rigid_bodies.append(n)
 	finish_him.play()
+	
+	# music hell
+	var pitch = new_difficulty
+	var shift = AudioEffectPitchShift.new()
+	shift.pitch_scale = time_left / 20.0
+	AudioServer.add_bus()
+	AudioServer.set_bus_name(AudioServer.get_bus_count() - 1, "Finish Him Music")
+	AudioServer.add_bus_effect(AudioServer.get_bus_count() - 1, shift, 0)
+	music.bus = "Finish Him Music"
+	music.pitch_scale = 20.0 / time_left
 	music.play()
 
 func _physics_process(_delta: float) -> void:
@@ -121,6 +133,7 @@ func you_win():
 	bg_darken.get_parent().show()
 	bg_darken.play("darken")
 	digital_timer_update_timer.stop()
+	music.stop()
 
 func you_lose():
 	for k in key_nodes:
@@ -133,12 +146,13 @@ func you_lose():
 	move_on_timer.wait_time = 3
 	move_on_timer.start()
 	finish_him.you_lose()
+	music.stop()
 
 
 func _on_digital_timer_update_timer_timeout() -> void:
-	if time_left > 0:
+	if time_left > -1:
 		time_left -= 1
-	if time_left:
+	if time_left >= 0:
 		if time_left >= 10:
 			@warning_ignore("integer_division")
 			timer_digit_1.new_frame(int(time_left/10))
@@ -255,6 +269,8 @@ func pause_shaking():
 func next_game():
 	# in UMDware, this moves this game along
 	# in not UMDware, it just resets the game
+	# also get rid of that bus we added for the music so we don't overload the server with busses
+	AudioServer.remove_bus(AudioServer.get_bus_count() - 1)
 	if won:
 		Global.global_difficulty += 0.5
 	else:

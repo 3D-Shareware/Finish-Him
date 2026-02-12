@@ -82,4 +82,4 @@ volume_db = 3.0
 
 [node name="Lose" type="AudioStreamPlayer" parent="." unique_id=577718696]
 stream = ExtResource("4_e5orj")
-volume_db = 3.0
+volume_db = -2.0
