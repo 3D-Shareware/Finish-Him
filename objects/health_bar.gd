@@ -16,6 +16,6 @@ func _ready() -> void:
 		health_bar.value = randi_range(10, 90)
 		kevin.show()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_scared:
 		apply_force(Vector2(-1000, -100))

@@ -6,3 +6,7 @@ func _ready():
 func play():
 	show()
 	$"AnimationPlayer".play("come_in")
+	$"Start".play()
+
+func you_lose():
+	$"Lose".play()

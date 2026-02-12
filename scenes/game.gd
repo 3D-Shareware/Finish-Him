@@ -31,11 +31,13 @@ extends Node2D
 @onready var bg_darken = $"Background Darkener/AnimationPlayer"
 @onready var finish_him = $"Finish Him"
 
+@onready var music = $"Music"
+
 enum INPUTS {up, left, down, right}
 
 ## If this project CRASHES AND DOESN'T FUNCTION, rename the up, left, down, and right inputs to match
 # the inputs they're named as in the actual project
-var target_input_names = ["up", "left", "down", "right"]
+var target_input_names = ["finish_him_up", "finish_him_left", "finish_him_down", "finish_him_right"]
 
 var key_input_order = []
 var key_nodes = []
@@ -87,6 +89,7 @@ func start_game(new_difficulty: float):
 	for n in key_nodes:
 		all_shakeable_rigid_bodies.append(n)
 	finish_him.play()
+	music.play()
 
 func _physics_process(_delta: float) -> void:
 	if take_inputs:
@@ -102,7 +105,7 @@ func _physics_process(_delta: float) -> void:
 				you_win()
 			else:
 				key_nodes[0].raring_to_go()
-		elif Input.is_action_just_pressed("kevins_keyboard"):
+		elif Input.is_action_just_pressed("finish_him_keyboard"):
 			# fail!
 			you_lose()
 	if is_scared:
@@ -127,8 +130,9 @@ func you_lose():
 	evil_kevin.you_lose()
 	move_on_timer.start()
 	digital_timer_update_timer.stop()
-	move_on_timer.wait_time = 2.5
+	move_on_timer.wait_time = 3
 	move_on_timer.start()
+	finish_him.you_lose()
 
 
 func _on_digital_timer_update_timer_timeout() -> void:

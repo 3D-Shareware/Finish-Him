@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://djlxg4rjtkdh5" path="res://assets/finish_him.png" id="1_8f21i"]
 [ext_resource type="Script" uid="uid://c65sowfvqckhd" path="res://objects/finish_him.gd" id="2_2n4ef"]
+[ext_resource type="AudioStream" uid="uid://dpp82bdj3jkfr" path="res://audio/finish_him.wav" id="3_2n4ef"]
+[ext_resource type="AudioStream" uid="uid://do0hlsfa0dqvu" path="res://audio/you_suck.wav" id="4_e5orj"]
 
 [sub_resource type="Animation" id="Animation_8f21i"]
 length = 0.001
@@ -73,3 +75,11 @@ script = ExtResource("2_2n4ef")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2098577289]
 libraries/ = SubResource("AnimationLibrary_e5orj")
+
+[node name="Start" type="AudioStreamPlayer" parent="." unique_id=417614523]
+stream = ExtResource("3_2n4ef")
+volume_db = 3.0
+
+[node name="Lose" type="AudioStreamPlayer" parent="." unique_id=577718696]
+stream = ExtResource("4_e5orj")
+volume_db = 3.0

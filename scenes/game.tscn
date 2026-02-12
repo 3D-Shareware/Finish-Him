@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c2v6uks8wg5de" path="res://objects/timekeeper_digit.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dkhu0lnl3rpa2" path="res://objects/health_bar.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://b18n6wpecrxaw" path="res://objects/finish_him.tscn" id="9_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://b5pbrvvgcp0lk" path="res://audio/music.wav" id="10_vtaks"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -96,7 +97,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_lnu2h"]
-resource_name = "tiny_shake_down"
+resource_name = "tiny_shake_finish_him_down"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -113,7 +114,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_0tnpc"]
-resource_name = "tiny_shake_left"
+resource_name = "tiny_shake_finish_him_left"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -130,7 +131,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_vtaks"]
-resource_name = "tiny_shake_right"
+resource_name = "tiny_shake_finish_him_right"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -147,7 +148,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_gee14"]
-resource_name = "tiny_shake_up"
+resource_name = "tiny_shake_finish_him_up"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -188,10 +189,10 @@ _data = {
 &"bomb": SubResource("Animation_u5sy4"),
 &"ghoulish_party": SubResource("Animation_kvpfn"),
 &"little_shake": SubResource("Animation_kvuet"),
-&"tiny_shake_down": SubResource("Animation_lnu2h"),
-&"tiny_shake_left": SubResource("Animation_0tnpc"),
-&"tiny_shake_right": SubResource("Animation_vtaks"),
-&"tiny_shake_up": SubResource("Animation_gee14"),
+&"tiny_shake_finish_him_down": SubResource("Animation_lnu2h"),
+&"tiny_shake_finish_him_left": SubResource("Animation_0tnpc"),
+&"tiny_shake_finish_him_right": SubResource("Animation_vtaks"),
+&"tiny_shake_finish_him_up": SubResource("Animation_gee14"),
 &"winter_wonderland": SubResource("Animation_dinhu")
 }
 
@@ -364,6 +365,10 @@ wait_time = 0.5
 
 [node name="Fatality Timer" type="Timer" parent="." unique_id=727898826]
 wait_time = 0.1
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1512215134]
+stream = ExtResource("10_vtaks")
+volume_db = -5.0
 
 [connection signal="timeout" from="Move On Timer" to="." method="_on_move_on_timer_timeout"]
 [connection signal="timeout" from="Digital Timer Update Timer" to="." method="_on_digital_timer_update_timer_timeout"]
