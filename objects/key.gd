@@ -8,6 +8,8 @@ var is_scared = false
 
 @onready var anim = $"AnimationPlayer"
 
+@onready var audio = $"AudioStreamPlayer2D"
+
 func ready_by_parent(i: int, key_frame: int):
 	id = i
 	position.x = id * 32 - 144
@@ -26,6 +28,8 @@ func get_got():
 	anim.play("break")
 	$"Sprite2D".z_index = 1
 	is_active = false
+	audio.pitch_scale = 0.1 + id * 0.2
+	audio.play()
 	#apply_impulse(Vector2(0, 500))
 
 func raring_to_go():

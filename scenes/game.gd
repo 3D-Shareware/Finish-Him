@@ -54,12 +54,15 @@ var shake_amount = 800
 var won = false
 
 var take_inputs = true
-var DEBUG_CAN_RESET = false
 
 var all_embers = []
 var is_scared = false
 
 func _ready() -> void:
+	start_game(Global.global_difficulty)
+	# start_game(ultra_hardcore_difficulty)
+
+func start_game(new_difficulty: float):
 	# add inputs if they don't exist
 	# good for umdware
 	if not InputMap.has_action("finish_him_up"):
@@ -112,10 +115,7 @@ func _ready() -> void:
 		
 	bg_darken.stop(true)
 	bg_darken.play("start")
-	start_game(Global.global_difficulty)
-	# start_game(ultra_hardcore_difficulty)
-
-func start_game(new_difficulty: float):
+	
 	ultra_hardcore_difficulty = new_difficulty
 	var number_of_keys = clampi(int((ultra_hardcore_difficulty * 2.5 + 2.6)), 5, 10)
 	for i in number_of_keys:
@@ -181,6 +181,10 @@ func you_win():
 	bg_darken.play("darken")
 	digital_timer_update_timer.stop()
 	music.stop()
+	music.bus = "Master"
+	music.pitch_scale = 1.0
+	music.stream = load("res://audio/fatality.wav")
+	music.play()
 
 func you_lose():
 	for k in key_nodes:
@@ -194,6 +198,10 @@ func you_lose():
 	move_on_timer.start()
 	finish_him.you_lose()
 	music.stop()
+	music.bus = "Master"
+	music.pitch_scale = 1.0
+	music.stream = load("res://audio/fail.wav")
+	music.play()
 
 
 func _on_digital_timer_update_timer_timeout() -> void:
@@ -223,6 +231,7 @@ func spawn_icicle():
 		add_child(new_icicle)
 		new_icicle.position = Vector2(evil_kevin.position.x, evil_kevin.position.y - 300)
 		remaining_spawning_things -= 1
+		good_kevin.play_icicle_sound()
 
 func launch_embers():
 	for emb in all_embers:
